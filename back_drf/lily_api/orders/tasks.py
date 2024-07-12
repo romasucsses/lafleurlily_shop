@@ -25,8 +25,8 @@ def send_emails(emails_list, title, msg):
     print("Successfully connected to server")
     print()
 
-    emails_list.split(',')
-    for person in emails_list:
+
+    def sender_func(person):
         body = msg
 
         # Make a MIME object to define parts of the email
@@ -46,6 +46,13 @@ def send_emails(emails_list, title, msg):
         TIE_server.sendmail(email_from, person, text)
         print(f"Email sent to: {person}")
         print()
+
+    if len(list(emails_list)) > 1:
+        emails_list.split(',')
+        for person in emails_list:
+            sender_func(person)
+    else:
+        sender_func(emails_list)
 
     # Close the server connection
     TIE_server.quit()

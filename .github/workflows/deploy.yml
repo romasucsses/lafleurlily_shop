@@ -18,8 +18,8 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker build -t romasucsses/repository:latest .
-        docker push romasucsses/repository:latest
+        docker build -t romasucsses/lafleurlily_shop.git .
+        docker push romasucsses/lafleurlily_shop.git
 
     - name: Deploy to server
       env:

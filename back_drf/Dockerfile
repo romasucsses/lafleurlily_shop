@@ -9,4 +9,6 @@ RUN apk update && apk add --no-cache mariadb-dev build-base
 
 RUN pip install -r requirements.txt
 
-CMD ["sh", "-c", "cd lily_api/ && python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+
+
+CMD ["sh", "-c", "cd lily_api/ && python manage.py collectstatic --noinput  && python manage.py makemigrations && python manage.py migrate && gunicorn --workers 3 --bind 0.0.0.0:8000 lily_api.wsgi:application"]

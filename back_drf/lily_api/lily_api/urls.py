@@ -5,7 +5,7 @@ from django.urls import path, include
 from lily_api import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls, name='admin_page'),
+    path('api/admin/', admin.site.urls, name='admin_page'),
     path('api/v1/products/', include('products.urls')),
     path('api/v1/orders/', include('orders.urls')),
     path('api/v1/users/', include('users.urls')),

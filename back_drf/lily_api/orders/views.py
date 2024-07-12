@@ -12,7 +12,7 @@ class CreateOrderAPI(APIView):
     permission_classes = [AllowAny]
 
     def sendEmailToAdminAndClient(self, client_email, order_data):
-        emails_list = 'canalofmoney2020@gmail.com,canalofmoney2020@gmail.com'
+        emails_list = ['acanalofmoney2020@gmail.com', 'bcanalofmoney2020@gmail.com']
         title = 'New Order on La Fleur Lily website'
         msg = (
             f'order data: Cart data - {order_data.cart_data} '
@@ -25,7 +25,7 @@ class CreateOrderAPI(APIView):
             f'ID Order is : #{order_data.id}'
             f'you also can call us : +1234253265 or email: supportLily@gmail.com'
         )
-        send_emails.delay(emails_list=client_email, title=title, msg=msg)
+        send_emails.delay(emails_list=[f"{client_email}",], title=title, msg=msg)
 
     def post(self, request):
         if request.user.is_authenticated:

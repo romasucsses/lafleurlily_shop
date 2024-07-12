@@ -26,6 +26,8 @@ services:
       - redis_lily_shop
     volumes:
       - ./back_drf:/app
+      - static_volume:/back_drf/lily_api/static
+      - media_volume:/back_drf/lily_api/img
     container_name: django_lily
 
   worker1:
@@ -50,7 +52,16 @@ services:
     ports: 
       - "8081:80"
     restart: always
+    depends_on:
+      - back_lily_shop
+    volumes:
+      - static_volume:/usr/share/nginx/html/static
+      - media_volume:/usr/share/nginx/html/media
 
+
+volumes:
+  static_volume:
+  media_volume:
 
 #  nginx:
 #    image: nginx:1.26-alpine

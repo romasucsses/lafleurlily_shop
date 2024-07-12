@@ -123,6 +123,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -160,11 +162,19 @@ REST_FRAMEWORK = {
     # 'PAGE_SIZE': 4,
 }
 
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:5173",
-# ]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8081",
+]
 
-CORS_ALLOW_ALL_ORIGINS = True
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8081",
+]
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+CSRF_ALLOWED_ORIGINS = ["http://localhost:8081"]
+CORS_ORIGINS_WHITELIST = ["http://localhost:8081"]
+
+CORS_ALLOW_ALL_ORIGINS = False
 
 
 MEDIA_URL = '/img/'
