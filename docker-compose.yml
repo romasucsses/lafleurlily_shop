@@ -10,11 +10,18 @@ services:
       MYSQL_PASSWORD: 'admin5'
       MYSQL_ROOT_PASSWORD: 'password5'
     container_name: mysql_lily
+    networks:
+     - lily_network
+
+
 
   redis_lily_shop:
     image: redis
     hostname: redis
     container_name: redis_lily
+    networks:
+     - lily_network
+
 
   back_lily_shop:
     build: 
@@ -29,6 +36,10 @@ services:
       - static_volume:/back_drf/lily_api/static
       - media_volume:/back_drf/lily_api/img
     container_name: django_lily
+    networks:
+     - lily_network
+
+
 
   worker1:
     build:
@@ -43,25 +54,45 @@ services:
       - back_lily_shop
     working_dir: /app/lily_api
     command: -A celery_app.app worker --loglevel=info
-  
+    networks:
+     - lily_network
+
+
   vue_lily:
     build:
       context: ./vue_lily
       dockerfile: Dockerfile
     container_name: vue_lily
     ports: 
-      - "8081:80"
+      - "80:80"
+      - "443:443"
+
     restart: always
     depends_on:
       - back_lily_shop
+     # - certbot
     volumes:
       - static_volume:/usr/share/nginx/html/static
       - media_volume:/usr/share/nginx/html/media
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    networks:
+     - lily_network
 
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes: 
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email canalofmoney2020@gmail.com -d lafleurlily.com --agree-tos
 
 volumes:
   static_volume:
   media_volume:
+
+networks:
+  lily_network:
 
 #  nginx:
 #    image: nginx:1.26-alpine

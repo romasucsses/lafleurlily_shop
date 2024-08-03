@@ -17,7 +17,7 @@ SECRET_KEY = 'django-insecure-x&12=g!sv0l$fqaqoyiklyky9^&cz530c6*rzjz@z1i8pkwaoh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', 'lafleurlily.com', '146.190.168.196', 'back_lily_shop', 'vue_lily', '172.19.0.4']
 
 
 # Application definition
@@ -237,3 +237,7 @@ CACHES = {
         }
     }
 }
+
+# HTTPS setup
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
