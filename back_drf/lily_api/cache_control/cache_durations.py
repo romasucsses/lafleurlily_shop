@@ -1,0 +1,2 @@
+CACHE_DURATIONS_10h = (60 * 60) * 10  # 10h
+CACHE_DURATIONS_24h = (60 * 60) * 24  # 24h

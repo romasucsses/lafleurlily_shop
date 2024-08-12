@@ -1,2 +1,5 @@
-export const DOMAIN_NAME = 'http://localhost:8001/api/v1/';
-export const DOMAIN_FOR_IMG = 'http://localhost:8001/';
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
+
+
+export const DOMAIN_NAME = process.env.DOMAIN_NAME;

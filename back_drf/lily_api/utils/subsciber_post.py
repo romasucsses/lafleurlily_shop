@@ -1,11 +1,19 @@
 from rest_framework.response import Response
-from utils.serializers import EmailSerializer
+from rest_framework import serializers
+from orders.models import EmailSubscription
+from rest_framework.views import APIView
 
 
-class SubscriberPost:
-    def post(self, request):
-        if 'email' in request.data:
-            serializer = EmailSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response("have got the email ", serializer)
+class EmailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EmailSubscription
+        fields = ["email"]
+
+
+class SubscriberPost(APIView):
+    def post(self, request, db):
+        serializer = EmailSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(using=db)
+            return Response("have got the email ")
+        return Response('not valid email data')

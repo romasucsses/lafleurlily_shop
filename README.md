@@ -1,0 +1,2 @@
+Wine Company Multi-Brand Platform
+This project is a comprehensive multi-brand platform for a wine company that features three distinct brands under one common backend built with Django REST Framework (DRF). Each brand has its own PostgreSQL database and a separate frontend built with Vue.js. The entire system is managed and served through Nginx, with Celery workers handling asynchronous tasks and Redis acting as the message broker.

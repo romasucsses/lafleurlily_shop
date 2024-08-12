@@ -51,9 +51,3 @@ class EmailSubscription(models.Model):
     email = models.EmailField()
     date_subscription = models.DateField(auto_now=True)
 
-
-class ContactUs(models.Model):
-    name = models.CharField(max_length=255)
-    subject = models.CharField(max_length=255)
-    email = models.EmailField()
-    message = models.TextField()

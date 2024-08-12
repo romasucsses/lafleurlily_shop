@@ -32,7 +32,6 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    DoesNotExist = None
     username = models.CharField(max_length=155, unique=True, null=True)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=355)

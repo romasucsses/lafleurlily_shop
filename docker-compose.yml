@@ -1,19 +1,41 @@
 services:
-  db_lily_shop:
-    image: mysql
-    ports:
-      - "3307:3306"
+  db_postgres_lily:
+    image: postgres:latest
+    container_name: postgres_db_1_lily
     environment:
-      MYSQL_DATABASE: 'lily_api'
-      MYSQL_USER: 'admin'
-      MYSQL_PORT: '3306'
-      MYSQL_PASSWORD: 'admin5'
-      MYSQL_ROOT_PASSWORD: 'password5'
-    container_name: mysql_lily
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB_LILY}
+    ports:
+      - "5433:5432"
     networks:
-     - lily_network
+      - lily_network
 
 
+  db_postgres_da:
+    image: postgres:latest
+    container_name: postgres_db_2_da
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB_DA}
+    ports:
+      - "5434:5432"
+    networks:
+      - lily_network
+
+
+  db_postgres_bastina:
+    image: postgres:latest
+    container_name: postgres_db_3_bastina
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB_BASTINA}
+    ports:
+      - "5435:5432"
+    networks:
+      - lily_network
 
   redis_lily_shop:
     image: redis
@@ -29,7 +51,9 @@ services:
     ports:
       - '8001:8000'
     depends_on:
-      - db_lily_shop
+      - db_postgres_lily
+      - db_postgres_da
+      - db_postgres_bastina
       - redis_lily_shop
     volumes:
       - ./back_drf:/app
@@ -38,25 +62,43 @@ services:
     container_name: django_lily
     networks:
      - lily_network
+    env_file:
+      - .env
 
 
-
-  worker1:
+  worker_1:
     build:
       context: ./back_drf
     hostname: worker
     entrypoint: celery
-    container_name: celery
+    container_name: celery_1
     volumes:
       - ./back_drf:/app
     depends_on:
       - redis_lily_shop
       - back_lily_shop
     working_dir: /app/lily_api
+    env_file:
+      - .env
     command: -A celery_app.app worker --loglevel=info
     networks:
      - lily_network
 
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes: 
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: >
+      certonly --webroot -w /var/www/certbot
+      --force-renewal 
+      --email canalofmoney2020@gmail.com 
+#      -d lafleurlily.com
+      -d dolceamorewine.com
+      -d bastinawine.com
+      --agree-tos
 
   vue_lily:
     build:
@@ -70,7 +112,6 @@ services:
     restart: always
     depends_on:
       - back_lily_shop
-     # - certbot
     volumes:
       - static_volume:/usr/share/nginx/html/static
       - media_volume:/usr/share/nginx/html/media
@@ -78,31 +119,71 @@ services:
       - ./certbot/www:/var/www/certbot
     networks:
      - lily_network
+    env_file:
+      - .env
 
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes: 
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    command: certonly --webroot -w /var/www/certbot --force-renewal --email canalofmoney2020@gmail.com -d lafleurlily.com --agree-tos
+  vue_da:
+    build:
+      context: ./vue_da
+      dockerfile: Dockerfile
+    container_name: vue_da
+    ports: 
+      - "80:80"
+      - "443:443"
+
+    restart: always
+    depends_on:
+      - back_lily_shop
+    networks:
+     - lily_network
+    env_file:
+      - .env
+
+  vue_bastina:
+    build:
+      context: ./vue_bastina
+      dockerfile: Dockerfile
+    container_name: vue_bastina
+    ports: 
+      - "80:80"
+      - "443:443"
+
+    restart: always
+    depends_on:
+      - back_lily_shop
+    networks:
+     - lily_network
+    env_file:
+      - .env
+
+nginx:
+  image: nginx:latest
+  container_name: nginx_proxy
+  ports:
+    - "80:80"
+    - "443:443"
+  volumes:
+    - static_volume:/usr/share/nginx/html/static
+    - media_volume:/usr/share/nginx/html/media
+    - ./nginx/conf.d:/etc/nginx/conf.d # Custom Nginx configuration
+    - ./nginx/nginx.conf:/etc/nginx/nginx.conf  
+    - ./certbot/conf:/etc/letsencrypt # SSL certificates
+    - ./certbot/www:/var/www/certbot
+    - ./lily_dist:/usr/share/nginx/html/lily # Serve files for lafleurlily
+    - ./da_dist:/usr/share/nginx/html/da # Serve files for doclce amore
+    - ./bastina_dist:/usr/share/nginx/html/bastina # Serve files for bastina
+  depends_on:
+    - vue_lily
+    - vue_da
+    - vue_bastina
+  networks:
+    - lily_network
+
 
 volumes:
   static_volume:
   media_volume:
 
+
 networks:
   lily_network:
-
-#  nginx:
-#    image: nginx:1.26-alpine
-#    ports:
-#      - "81:80"
-#    depends_on:
-#      - vue_lily
-#      - back_lily_shop
-#    volumes:
-#        - ./vue_lily/nginx/nginx.conf:/etc/nginx/nginx.conf
-#        - ./vue_lily/nginx/conf.d:/etc/nginx/conf.d
-#    container_name: nginx_lily
-

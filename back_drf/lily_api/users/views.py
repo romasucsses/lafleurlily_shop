@@ -1,75 +1,93 @@
-from django.http import Http404, JsonResponse
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import *
+from .serializers import ShippingAddressSerializer,  UserSerializer
 from .models import User
 from orders.serializers import OrdersSerializer
 from orders.models import OrderInfo
+from cache_control.cache_logic import *
+from .tasks import update_user_task, update_address_task, create_new_user_task
 
-
-class MyAccountInfo(APIView):
+class MyAccountInfoAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get(self, request):
-        return Response(UserSerializer(request.user).data)
+    def get(self, request, db):
+        result = get_or_set_cache(
+            queryset=User.objects.using(db).get(id=request.user.id),
+            serializer=UserSerializer,
+            cache_name=f"{USER_DETAIL_CACHE_NAME}_{db}_{request.user.id}",
+            type_data='detail',
+            cache_duration=CACHE_DURATIONS_24h
+        )
+        return Response(result)
 
-    def patch(self, request):
-        user = User.objects.get(pk=request.user.pk)
-        serializer = UserSerializer(user, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            print(user.name)
-            return JsonResponse(data=serializer.data)
-        return Response(serializer.errors)
+    def patch(self, request, db):
+        task = update_user_task.delay(request.data, request.user.id, db)
+        if task:
+            return Response("task is started")
+        return Response("failed to start task")
 
 
-class MyOrdersInfo(APIView):
+class MyOrdersInfoAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get(self, request):
-        orders = OrderInfo.objects.filter(user=request.user)
-        return Response(OrdersSerializer(orders, many=True).data)
+    def get(self, request, db):
+        orders = OrderInfo.objects.using(db).filter(user=request.user)
+        result = get_or_set_cache(
+            queryset=orders,
+            serializer=OrdersSerializer,
+            cache_name=f"{ORDERS_LIST_CACHE_NAME}_{db}_{request.user.id}",
+            type_data='list',
+            cache_duration=CACHE_DURATIONS_24h
+        )
+        return Response(result)
 
 
-class MyDetailOrderInfo(APIView):
+class MyDetailOrderInfoAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, pk):
-        order = OrderInfo.objects.get(pk=pk)
-        return Response(OrdersSerializer(order).data)
+    def get(self, request, pk, db):
+        order = OrderInfo.objects.using(db).get(pk=pk, user=request.user)
+        result = get_or_set_cache(
+            queryset=order,
+            serializer=OrdersSerializer,
+            cache_name=f"{ORDER_DETAIL_CACHE_NAME}_{db}_{request.user.id}_order_{pk}",
+            type_data='detail',
+            cache_duration=CACHE_DURATIONS_24h
+        )
+        return Response(result)
 
-    def post(self, request):
-        pass
 
 
-class MyAddressInfo(APIView):
+class MyAddressInfoAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def getUserAddress(self, request):
-        return request.user.user_shipping_address
+    def getUserAddress(self, request, db):
+        user = User.objects.using(db).get(id=request.user.id)
+        return user.user_shipping_address
 
-    def get(self, request):
-        return Response(ShippingAddressSerializer(self.getUserAddress(request)).data)
+    def get(self, request, db):
+        result = get_or_set_cache(
+            queryset=self.getUserAddress(request, db),
+            serializer=ShippingAddressSerializer,
+            cache_name=f"{SHIPPING_ADDRESS_DETAIL_CACHE_NAME}_{db}_{request.user.id}",
+            type_data='detail',
+            cache_duration=CACHE_DURATIONS_24h
+        )
+        return Response(result)
 
-    def patch(self, request):
-        new_data = ShippingAddressSerializer(self.getUserAddress(request), data=request.data, partial=True)
-        if new_data.is_valid():
-            new_data.save()
-            user = self.getUserAddress(request)
-            user = new_data.instance
-            user.save()
-            return Response('Done Successful')
-        return Response('Not Successful')
+    def patch(self, request, db):
+        task = update_address_task.delay(request.data, self.getUserAddress(request, db), db)
+        if task:
+            return Response("task is started")
+        return Response("failed to start task")
 
 
-class SingUp(APIView):
+class SingUpAPIView(APIView):
     permission_classes = [AllowAny]
 
-    def post(self, request):
-        new_user = UserSignUpSerializer(data=request.data)
-        if new_user.is_valid():
-            new_user.save()
-            return Response('User have been created')
-
-        return Response('User Not Created')
+    def post(self, request, db):
+        task = create_new_user_task.delay(request.data, db)
+        if task:
+            return Response("task is started")
+        return Response("failed to start task")
