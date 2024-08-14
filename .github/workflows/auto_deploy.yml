@@ -3,7 +3,7 @@ name: Deploy Application
 on:
   push:
     branches:
-      - main  # Triggers the workflow on push to the main branch
+      - main
 
 jobs:
   build:
@@ -24,8 +24,8 @@ jobs:
 
     - name: Build and push Docker images
       run: |
-        docker-compose -f backend/docker-compose.yml build
-        docker-compose -f backend/docker-compose.yml push
+        docker compose -f docker-compose.yml build
+        docker compose -f docker-compose.yml push
 
   deploy:
     needs: build
@@ -42,14 +42,9 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: SSH Deploy to Server
-      uses: appleboy/ssh-action@v0.1.6
-      with:
-        host: ${{ secrets.SERVER_HOST }}
-        username: ${{ secrets.SERVER_USER }}
-        key: ${{ secrets.SERVER_SSH_KEY }}
-        port: ${{ secrets.SERVER_PORT }}
-        script: |
-          cd /path/to/your/app
-          docker-compose down
-          docker-compose pull
-          docker-compose up -d
+      run: |
+        sshpass -p ${{ secrets.SERVER_PASSWORD }} ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} <<EOF
+          docker compose down
+          docker compose pull
+          docker compose up -d .
+        EOF
