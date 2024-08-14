@@ -43,7 +43,7 @@ jobs:
 
     - name: SSH Deploy to Server
       run: |
-        sshpass -p ${{ secrets.SERVER_PASSWORD }} ssh -t ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} <<EOF
+        sshpass -p ${{ secrets.SERVER_PASSWORD }} ssh -tt ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} <<EOF
           docker compose down
           docker compose pull
           docker compose up -d .
