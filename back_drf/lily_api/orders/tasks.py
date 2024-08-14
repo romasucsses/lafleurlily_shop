@@ -24,7 +24,7 @@ def send_emails_task(emails_list, title, msg):
 
     # Connect with the server
     print("Connecting to server...")
-    TIE_server = smtplib.SMTP(smtp_server, smtp_port)
+    TIE_server = smtplib.SMTP(smtp_server,int(smtp_port))
     TIE_server.starttls()
     TIE_server.login(email_from, pswd)
     print("Successfully connected to server")

@@ -8,6 +8,7 @@ import BaseAccountView from '@/views/Accounts/BaseAccountView.vue';
 import { DOMAIN_NAME } from '@/utils/api_links';
 import EditMyShippingAddress from '@/components/Accounts/EditMyShippingAddress.vue';
 import { pushScopeId } from 'vue';
+import * as path from 'path'
 
 export default [
     {

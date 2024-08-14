@@ -11,9 +11,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-DEBUG = os.getenv('DEBUG')
+DEBUG = os.getenv('DEBUG') == 'True'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
 
 # Application definition
@@ -69,6 +69,14 @@ WSGI_APPLICATION = 'lily_api.wsgi.application'
 
 
 DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB_LILY'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': 'db_postgres_lily',
+        'PORT': '5432',
+    },
     'lily': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('POSTGRES_DB_LILY'),
