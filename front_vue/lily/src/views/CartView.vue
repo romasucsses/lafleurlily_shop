@@ -1,6 +1,6 @@
 <script setup>
     import { onMounted, ref, watch } from 'vue';
-    import { DOMAIN_FOR_IMG, DOMAIN_NAME } from '@/utils/api_links';
+    import { DOMAIN_NAME, DOMAIN_FOR_IMG } from '@/utils/api_links';
     import { DeleteItemFromCart, SaveLocalData } from '@/utils/cart_logic/cart.js';
     import { RouterLink, useRouter } from 'vue-router';
     import axios from 'axios';

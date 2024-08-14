@@ -11,7 +11,6 @@ services:
     networks:
       - lily_network
 
-
   db_postgres_da:
     image: postgres:latest
     container_name: postgres_db_2_da
@@ -23,7 +22,6 @@ services:
       - "5434:5432"
     networks:
       - lily_network
-
 
   db_postgres_bastina:
     image: postgres:latest
@@ -43,7 +41,6 @@ services:
     container_name: redis_lily
     networks:
      - lily_network
-
 
   back_lily_shop:
     build: 
@@ -65,7 +62,6 @@ services:
     env_file:
       - .env
 
-
   worker_1:
     build:
       context: ./back_drf
@@ -84,100 +80,35 @@ services:
     networks:
      - lily_network
 
-
   certbot:
     image: certbot/certbot
     container_name: certbot
-    volumes: 
+    volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
     command: >
       certonly --webroot -w /var/www/certbot
       --force-renewal 
       --email canalofmoney2020@gmail.com 
-#      -d lafleurlily.com
       -d dolceamorewine.com
       -d bastinawine.com
       --agree-tos
 
-  vue_lily:
+  nginx:
     build:
-      context: ./vue_lily
-      dockerfile: Dockerfile
-    container_name: vue_lily
-    ports: 
+      context: .
+      dockerfile: Dockerfilefront
+    container_name: nginx_proxy
+    ports:
       - "80:80"
       - "443:443"
-
-    restart: always
-    depends_on:
-      - back_lily_shop
     volumes:
       - static_volume:/usr/share/nginx/html/static
       - media_volume:/usr/share/nginx/html/media
-      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/conf:/etc/letsencrypt # SSL certificates
       - ./certbot/www:/var/www/certbot
     networks:
-     - lily_network
-    env_file:
-      - .env
-
-  vue_da:
-    build:
-      context: ./vue_da
-      dockerfile: Dockerfile
-    container_name: vue_da
-    ports: 
-      - "80:80"
-      - "443:443"
-
-    restart: always
-    depends_on:
-      - back_lily_shop
-    networks:
-     - lily_network
-    env_file:
-      - .env
-
-  vue_bastina:
-    build:
-      context: ./vue_bastina
-      dockerfile: Dockerfile
-    container_name: vue_bastina
-    ports: 
-      - "80:80"
-      - "443:443"
-
-    restart: always
-    depends_on:
-      - back_lily_shop
-    networks:
-     - lily_network
-    env_file:
-      - .env
-
-nginx:
-  image: nginx:latest
-  container_name: nginx_proxy
-  ports:
-    - "80:80"
-    - "443:443"
-  volumes:
-    - static_volume:/usr/share/nginx/html/static
-    - media_volume:/usr/share/nginx/html/media
-    - ./nginx/conf.d:/etc/nginx/conf.d # Custom Nginx configuration
-    - ./nginx/nginx.conf:/etc/nginx/nginx.conf  
-    - ./certbot/conf:/etc/letsencrypt # SSL certificates
-    - ./certbot/www:/var/www/certbot
-    - ./lily_dist:/usr/share/nginx/html/lily # Serve files for lafleurlily
-    - ./da_dist:/usr/share/nginx/html/da # Serve files for doclce amore
-    - ./bastina_dist:/usr/share/nginx/html/bastina # Serve files for bastina
-  depends_on:
-    - vue_lily
-    - vue_da
-    - vue_bastina
-  networks:
-    - lily_network
+      - lily_network
 
 
 volumes:
