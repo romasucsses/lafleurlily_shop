@@ -17,6 +17,7 @@ jobs:
       run: |
         sshpass -p ${{ secrets.SERVER_PASSWORD }} ssh -o StrictHostKeyChecking=no -tt ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
           cd www/app/lafleurlily_shop
+
           git pull origin main 
           docker compose down
           docker compose build
