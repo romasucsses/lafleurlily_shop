@@ -76,30 +76,6 @@ DATABASES = {
         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
         'HOST': 'db_postgres_lily',
         'PORT': '5432',
-    },
-    'lily': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB_LILY'),
-        'USER': os.getenv('POSTGRES_USER'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-        'HOST': 'db_postgres_lily',
-        'PORT': '5432',
-    },
-    'da': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB_DA'),
-        'USER': os.getenv('POSTGRES_USER'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-        'HOST': 'db_postgres_da',
-        'PORT': '5432',
-    },
-    'bastina': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB_BASTINA'),
-        'USER': os.getenv('POSTGRES_USER'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-        'HOST': 'db_postgres_bastina',
-        'PORT': '5432',
     }
 }
 
@@ -119,7 +95,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 
 LANGUAGE_CODE = 'en-us'
@@ -170,19 +145,14 @@ REST_FRAMEWORK = {
     # 'PAGE_SIZE': 4,
 }
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8081",
-]
+CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS').split(',')
 
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:8081",
-]
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split(',')
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_ALLOWED_ORIGINS = os.getenv('CSRF_ALLOWED_ORIGINS').split(',')
+CORS_ORIGINS_WHITELIST = os.getenv('CORS_ORIGINS_WHITELIST').split(',')
 
-CSRF_ALLOWED_ORIGINS = ["http://localhost:8081"]
-CORS_ORIGINS_WHITELIST = ["http://localhost:8081"]
-
-CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_ALL_ORIGINS = os.getenv('OW_ALL_ORIGINS') == 'True'
 
 
 MEDIA_URL = '/img/'

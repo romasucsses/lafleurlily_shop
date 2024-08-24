@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import OrderInfoBastina, OrderInfoDA, OrderInfoLily
 
-# Register your models here.
+admin.site.register(OrderInfoLily)
+admin.site.register(OrderInfoDA)
+admin.site.register(OrderInfoBastina)

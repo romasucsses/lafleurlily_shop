@@ -5,9 +5,7 @@ import MyShipingAddress from '@/components/Accounts/MyShipingAddress.vue';
 import LoginView from '@/views/Accounts/LoginView.vue';
 import SingUpView from '@/views/Accounts/SingUpView.vue';
 import BaseAccountView from '@/views/Accounts/BaseAccountView.vue';
-import { DOMAIN_NAME } from '@/utils/api_links';
 import EditMyShippingAddress from '@/components/Accounts/EditMyShippingAddress.vue';
-import { pushScopeId } from 'vue';
 
 export default [
     {

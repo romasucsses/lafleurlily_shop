@@ -155,7 +155,7 @@
 }
 
 button[type="submit"] {
-    background-color: #007BFF;
+    background-color: rgba(205,132,115,255);
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -166,7 +166,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: rgba(205,132,115,255);
 }
 
 .create-account {

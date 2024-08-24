@@ -26,8 +26,8 @@ class ContactUsViewAPI(APIView):
     def post(self, request, db):
         task = send_emails_task.delay(
             emails_list=os.getenv('email_from'), 
-            title='New Request to Contact', 
-            msg=request.data.msg
+            title=f'New Contact Us:{request.data.title}',
+            msg=f'msg: {request.data.msg}, email: {request.data.email}, name: {request.data.name}'
         )
         if task:
             return Response("task is started")

@@ -132,7 +132,7 @@
         margin: 5px;
         border: none;
         border-radius: 5px;
-        background-color: #007bff;
+        background-color: rgba(205,132,115,255);
         color: #fff;
         font-size: 14px;
 
@@ -140,7 +140,8 @@
     }
 
     .right-info button:hover {
-        background-color: #0056b3;
+        background-color: #ffffff;
+        color: rgba(205,132,115,255);
     }
 
     .right-info .btns {

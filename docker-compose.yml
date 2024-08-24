@@ -12,31 +12,6 @@ services:
       - lily_network
 
 
-  db_postgres_da:
-    image: postgres:latest
-    container_name: postgres_db_2_da
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB_DA}
-    ports:
-      - "5434:5432"
-    networks:
-      - lily_network
-
-
-  db_postgres_bastina:
-    image: postgres:latest
-    container_name: postgres_db_3_bastina
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB_BASTINA}
-    ports:
-      - "5435:5432"
-    networks:
-      - lily_network
-
   redis_lily_shop:
     image: redis
     hostname: redis
@@ -49,11 +24,9 @@ services:
     build:
       context: ./back_drf
     ports:
-      - '8001:8000'
+      - '8002:8000'
     depends_on:
       - db_postgres_lily
-      - db_postgres_da
-      - db_postgres_bastina
       - redis_lily_shop
     volumes:
       - ./back_drf:/app

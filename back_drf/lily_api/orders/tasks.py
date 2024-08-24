@@ -6,10 +6,11 @@ from email.mime.base import MIMEBase
 from email import encoders
 import time
 from celery import shared_task
-from .serializers import OrdersSerializer
 from users.models import User
-from orders.serializers import ShippingAddressSerializer
 from dotenv import load_dotenv
+
+from users.serializers import ShippingAddressSerializer
+from utils.get_table import get_model_by, get_serializer
 
 load_dotenv()
 
@@ -88,16 +89,19 @@ def send_email_to_admin_and_client_task(client_email, order_data):
 @shared_task
 def create_new_order_task(request_data, user_id, db):
     try:
-        user = User.objects.using(db).get(id=user_id)
+        user = User.objects.get(id=user_id)
+        model = get_model_by(db, 'OrderInfo', 'orders')
+        serializer_order = get_serializer(db, 'OrderInfo')
         if user.is_authenticated:
-            new_order = OrdersSerializer(data=request_data)
+
+            new_order = serializer_order(data=request_data)
 
             if new_order.is_valid():
                 shipping_address = user.user_shipping_address
 
                 if shipping_address is None:
                     return {'message': 'Your Shipping Address is None', 'isShippingAddress': False}
-                order = new_order.save(user=user, shipping_data=user.user_shipping_address, using=db)
+                order = new_order.save(user=user, shipping_data=user.user_shipping_address)
                 send_email_to_admin_and_client_task(user.user_shipping_address.email, order)
                 return {'message': 'Order was successfully created', 'order_id': order.id}
 
@@ -113,13 +117,13 @@ def create_new_order_task(request_data, user_id, db):
             new_shipping_address = ShippingAddressSerializer(data=shipping_address)
 
             if new_shipping_address.is_valid():
-                address = new_shipping_address.save(using=db)
+                address = new_shipping_address.save()
                 new_order_data = request_data.copy()
                 new_order_data['shipping_data'] = address.id
-                new_order = OrdersSerializer(data=new_order_data, using=db)
+                new_order = serializer_order(data=new_order_data)
 
                 if new_order.is_valid():
-                    order = new_order.save(using=db)
+                    order = new_order.save()
                     send_email_to_admin_and_client_task(address.email, order)
                     return {'message': 'New Order has been created for Guest', 'order_id': order.id}
                 return {'error': 'Some problems with order data', 'details': new_order.errors}

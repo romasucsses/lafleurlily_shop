@@ -1,17 +1,17 @@
 from django.contrib.auth.hashers import make_password
-from rest_framework import serializers
+from rest_framework.serializers import ModelSerializer
 
 from orders.models import ShippingInfo
 from .models import User
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'email', 'name', 'last_name']
 
 
-class UserSignUpSerializer(serializers.ModelSerializer):
+class UserSignUpSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = ['email', 'password']
@@ -22,7 +22,7 @@ class UserSignUpSerializer(serializers.ModelSerializer):
         return user
 
 
-class ShippingAddressSerializer(serializers.ModelSerializer):
+class ShippingAddressSerializer(ModelSerializer):
     class Meta:
         model = ShippingInfo
         fields = '__all__'

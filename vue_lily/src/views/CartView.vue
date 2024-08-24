@@ -1,6 +1,6 @@
 <script setup>
     import { onMounted, ref, watch } from 'vue';
-    import { DOMAIN_FOR_IMG, DOMAIN_NAME } from '@/utils/api_links';
+    import { DOMAIN_NAME } from '@/utils/api_links';
     import { DeleteItemFromCart, SaveLocalData } from '@/utils/cart_logic/cart.js';
     import { RouterLink, useRouter } from 'vue-router';
     import axios from 'axios';
@@ -101,11 +101,11 @@
                     <td class="cancel-prod">
                         <div>
                             <button class="delete-item" @click="DeleteItemFromCart(eachitem.id)">
-                                <img src="../../public/shop/images/site-img/cancel-circle.svg">
+                                <img src="../../public/pages/images/site-img/cancel-circle.svg">
                             </button>
                         </div>
                     </td>
-                    <td class="image-prod"><img :src="DOMAIN_FOR_IMG + eachitem.image"></td>
+                    <td class="image-prod"><img :src="DOMAIN_NAME + eachitem.image"></td>
                     <td>{{ eachitem.name }} </td>
                     <td>$ {{ eachitem.price }}.00</td>
                     <td><input type="number" v-model="eachitem.quantity"></td>

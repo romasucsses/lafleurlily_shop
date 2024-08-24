@@ -3,7 +3,7 @@
     <nav>
       <div class="menu">
         <RouterLink :to="{name: 'home'}">
-          <img class="logo-img" src="/public/shop/images/site-img/logo.png"/>
+          <img class="logo-img" src="../../public/pages/images/site-img/logo.png"/>
         </RouterLink>
         <ul :class="{ 'menu-open': isMenuOpen }">
           <li @click="closeMenu">
@@ -11,12 +11,6 @@
           </li>
           <li @click="closeMenu">
             <RouterLink :to="{ name: 'shop' }">SHOP</RouterLink>
-          </li>
-          <li @click="closeMenu">
-            <RouterLink :to="{ name: 'wine' }">WINE</RouterLink>
-          </li>
-          <li @click="closeMenu">
-            <RouterLink :to="{ name: 'sparkling' }">SPARKLING</RouterLink>
           </li>
           <li @click="closeMenu">
             <RouterLink :to="{ name: 'login' }">MY ACCOUNT</RouterLink>
@@ -32,8 +26,8 @@
           </li>
         </ul>
         <div class="cart-acc-img">
-          <RouterLink :to="{ name: 'cart' }"><a><img src="/public/shop/images/site-img/cart_.svg.png" /></a></RouterLink>
-          <RouterLink :to="{ name: 'my_account' }"><a><img src="/public/shop/images/site-img/my-account.png" /></a>
+          <RouterLink :to="{ name: 'cart' }"><a><img src="../../public/pages/images/site-img/cart_.svg.png" /></a></RouterLink>
+          <RouterLink :to="{ name: 'my_account' }"><a><img src="../../public/pages/images/site-img/my-account.png" /></a>
           </RouterLink>
         </div>
         <button class="menu-toggle" @click="toggleMenu">☰</button>
@@ -91,7 +85,7 @@ export default {
 }
 
 .navigation-menu li a:hover {
-  background-color: #483e3e;
+  background-color: rgba(205,132,115,255);
   color: #FFFFFF;
 }
 
@@ -146,7 +140,7 @@ export default {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 90%;
     background-color: rgba(255, 255, 255, 0.9);
     padding: 20px;
     overflow-y: auto;
@@ -176,7 +170,7 @@ export default {
   .menu-toggle {
     display: block;
     margin-left: auto;
-    margin-top: -4%;
+    margin-top: -8%;
   }
 }
 </style>

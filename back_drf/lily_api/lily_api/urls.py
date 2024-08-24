@@ -1,7 +1,8 @@
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from lily_api import settings
+
 
 urls_api_version_1 = [
     path('products/', include('products.urls')),
@@ -10,7 +11,7 @@ urls_api_version_1 = [
 ]
 
 urlpatterns = [
-    path('api/admin/', admin.site.urls, name='admin_page'),
+    re_path(r'^api/admin/', admin.site.urls, name='admin_page'),
     path('api/v1/<str:db>/', include(urls_api_version_1)),
 
 ]

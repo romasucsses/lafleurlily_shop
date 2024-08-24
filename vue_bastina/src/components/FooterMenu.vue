@@ -5,10 +5,7 @@ import { DOMAIN_NAME } from '@/utils/api_links';
 let email_user;
 async function subscribePostRequest() {
   try {
-    // let email_user = document.getElementById('subscration').value;
-    await axios.post(DOMAIN_NAME + 'products/', { email: email_user });
-    console.log("Request has been sent, email of user =", email_user);
-    
+    await axios.post(DOMAIN_NAME + 'orders/email-subscrube/', { email: email_user });
   } catch (error) {
     console.error("Error occurred:", error);
   }
@@ -20,17 +17,17 @@ async function subscribePostRequest() {
     <div class="left-column">
       <div class="icons-footer">
         <a href="https://www.instagram.com/lafleurlilywine/">
-          <img src="/public/shop/images/site-img/icons-footer/instagram-footer.png" />
+          <img src="../../public/pages/images/site-img/icons-footer/instagram-footer.png" />
         </a>
         <a href="https://www.facebook.com/lafleurlilywine/">
-          <img src="/public/shop/images/site-img/icons-footer/facebook-footer.svg" />
+          <img src="../../public/pages/images/site-img/icons-footer/facebook-footer.svg" />
         </a>
 
         <a href="https://www.pinterest.com/lafleurlilywine/">
-          <img src="/public/shop/images/site-img/icons-footer/pinterest-footer.svg" />
+          <img src="../../public/pages/images/site-img/icons-footer/pinterest-footer.svg" />
         </a>
       </div>
-      <p>Copyright © 2023 La Fluer Lily</p>
+      <p>Copyright © 2024 Bastina</p>
     </div>
 
     <div class="right-column">
@@ -82,7 +79,7 @@ async function subscribePostRequest() {
 .footer button {
   width: 160px;
   height: 50px;
-  background-color: #0084d6;
+  background-color: rgba(102, 34, 47, 1);
   color: #ffff;
   border: 0;
   font-weight: 700;

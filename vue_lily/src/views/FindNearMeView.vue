@@ -1,54 +1,53 @@
 <script setup>
-import { ref } from 'vue';
+  import { onMounted, ref } from 'vue';
+  import axios from 'axios';
+  import { DOMAIN_NAME } from '../utils/api_links.js';
 
-const AddressSet = [
-  "3607 Broadway",
-  "3790 Broadway, NY",
-  "720 West 181st street",
-  "2235 Frederick Douglass Blvd",
-  "152 Wyckoff Ave, Brooklyn",
-  "66-22 FOREST AVE, RIDGEWOOD"
-];
+  const searchQuery = ref('');
+  const searchResults = ref([]);
+  const allStores = ref([]);
+  const allStoresVisible = ref(true);
 
-const LinksSet = [
-  "https://maps.app.goo.gl/cs2d1ZdU2R8aS1J79",
-  "https://maps.app.goo.gl/WEWXwQwj4AH61jq17",
-  "https://maps.app.goo.gl/jkcsRmqhRhJj1oLT7",
-  "https://maps.app.goo.gl/TefsTKejmnN52CAY7",
-  "https://maps.app.goo.gl/g3CmTXm5Fzp2eQWu5",
-  "https://maps.app.goo.gl/rQbDK224unuF2E5E8"
-];
+  async function getStoresAddresses() {
+    const final_endpoint = DOMAIN_NAME + "products/list_of_stores/";
 
-const searchQuery = ref('');
-const searchResults = ref([]);
-const allStores = ref([]);
-const allStoresVisible = ref(true);
-
-
-allStores.value = AddressSet.map((address, index) => ({
-  address,
-  link: LinksSet[index]
-}));
-
-
-
-function SearchAddress() {
-  const Input = searchQuery.value;
-  const matchingAddresses = AddressSet.filter(address => address.toLowerCase().includes(Input.toLowerCase()));
-  if (matchingAddresses.length > 0) {
-    searchResults.value = matchingAddresses.map((address, index) => ({
-      address,
-      link: LinksSet[AddressSet.indexOf(address)]
-    }));
-    
+    try {
+      const response = await axios.get(final_endpoint);
+      allStores.value = response.data.map((store) => ({
+        address: store.address,  // Assuming the response contains objects with 'address'
+        link: store.link         // Assuming the response contains objects with 'link'
+      }));
+    } catch (error) {
+      console.log(error);
+    }
   }
-}
 
-function CheckKey(event) {
-  if (event.key === 'Enter') {
-    SearchAddress();
+  function SearchAddress() {
+    const input = searchQuery.value.trim().toLowerCase();
+
+    const matchingAddresses = allStores.value.filter(store => 
+      store.address.toLowerCase().includes(input)
+    );
+
+    if (matchingAddresses.length > 0) {
+      searchResults.value = matchingAddresses;
+      allStoresVisible.value = false; // Hide all stores when showing search results
+    } else {
+      searchResults.value = [];
+      allStoresVisible.value = true; // Show all stores if no search results
+    }
   }
-}
+
+  function CheckKey(event) {
+    if (event.key === 'Enter') {
+      SearchAddress();
+    }
+  }
+
+  onMounted(() => {
+    getStoresAddresses(); 
+  });
+
 </script>
 
 <template>

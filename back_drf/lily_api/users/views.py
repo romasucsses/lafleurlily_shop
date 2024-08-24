@@ -3,10 +3,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import ShippingAddressSerializer,  UserSerializer
 from .models import User
-from orders.serializers import OrdersSerializer
-from orders.models import OrderInfo
 from cache_control.cache_logic import *
 from .tasks import update_user_task, update_address_task, create_new_user_task
+from utils.get_table import get_model_by, get_serializer
+
 
 class MyAccountInfoAPIView(APIView):
     permission_classes = [IsAuthenticated]
@@ -32,10 +32,12 @@ class MyOrdersInfoAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, db):
-        orders = OrderInfo.objects.using(db).filter(user=request.user)
+        model = get_model_by(db, 'OrderInfo', 'orders')
+        orders = model.objects.filter(user=request.user)
+        serializer = get_serializer(db, 'OrderInfo')
         result = get_or_set_cache(
             queryset=orders,
-            serializer=OrdersSerializer,
+            serializer=serializer,
             cache_name=f"{ORDERS_LIST_CACHE_NAME}_{db}_{request.user.id}",
             type_data='list',
             cache_duration=CACHE_DURATIONS_24h
@@ -47,10 +49,12 @@ class MyDetailOrderInfoAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, pk, db):
-        order = OrderInfo.objects.using(db).get(pk=pk, user=request.user)
+        model = get_model_by(db, 'OrderInfo', 'orders')
+        order = model.objects.get(pk=pk, user=request.user)
+        serializer = get_serializer(db, 'OrderInfo')
         result = get_or_set_cache(
             queryset=order,
-            serializer=OrdersSerializer,
+            serializer=serializer,
             cache_name=f"{ORDER_DETAIL_CACHE_NAME}_{db}_{request.user.id}_order_{pk}",
             type_data='detail',
             cache_duration=CACHE_DURATIONS_24h
@@ -63,7 +67,7 @@ class MyAddressInfoAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def getUserAddress(self, request, db):
-        user = User.objects.using(db).get(id=request.user.id)
+        user = User.objects.get(id=request.user.id)
         return user.user_shipping_address
 
     def get(self, request, db):

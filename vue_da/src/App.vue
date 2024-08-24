@@ -9,11 +9,3 @@
   <RouterView />
   <FooterMenu />
 </template>
-
-<!-- <style>
-@media (max-width: 768px) {
-  .max-width{
-    max-width: 768px;
-  }
-}
-</style> -->

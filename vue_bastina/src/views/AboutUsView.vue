@@ -1,13 +1,13 @@
 <script setup>
-    const person_url =  "../../public/pages/images/team-photos/" ;
+    const person_url =  "../../pages/images/team-photos/" ;
 
     const team_people = [
         { name: "Victor Costin", position: "CEO - Founder" },
         { name: "Lily Costin",position: "CFO" },
         { name: "Rachel Zain", position: "Marketing Head" },
-        { name: "Roma Costin", position: "Web Devoloper" },
+        { name: "Roma Costin", position: "FullStack Devoloper" },
         { name: "Katrina Bennett", position: "Call Operator" },
-        { name: "Eugen Pantus", position: "Brand Manger" }
+        { name: "Eugen Pantus", position: "Designer" }
     ]
     
 </script>
@@ -23,35 +23,35 @@
           <div class="left-block">
             <h2>Who We Are</h2>
             <p>
-              La Fleur Lily is a wine brand created by Victor and Lily, a young
-              family who immigrated to the United States from Europe in search of
-              a better life. Upon arriving in New York, Lily began searching for
-              her favorite semi-sweet wine that would suit her taste, but Victor,
-              who knew a lot about wines thanks to his family of winemakers,
-              decided to find a true, quality wine with no additives for her. In
-              search of the perfect wine for Lily, Victor traveled the world and
-              finally, in 2004, he met a young man who inherited winemaking from
-              his parents. This young man was a talented winemaker who created a
-              unique wine that matched Lily's character, romantic and
-              free-spirited. Victor asked him to taste the wine and realized that
-              this was what he was looking for. They named the wine La Fleur Lily
-              in honor of Lily and began working together to create more
-              high-quality wines. Since then, La Fleur Lily has a portfolio of 12
-              wines that sell very well. In 2023, La Fleur Lily received an
-              organic certification in France, which confirms their constant
-              pursuit of high quality and care for the environment. Thanks to the
-              talent and efforts of Victor and the young winemaker, La Fleur Lily
-              has become not only Lily's favorite wine but also one of the most
-              popular wine brands in the market.
+              Bastina Wine is a brand born from the dreams of Victor and Lily,
+              a young couple who left Europe for the United States in search 
+              of a better life. Upon settling in New York, Lily began a quest
+              to find the perfect semi-sweet wine that matched her taste. 
+              Victor, who came from a long line of winemakers, was determined
+              to find a pure, high-quality wine with no additives for his beloved. 
+              Victor’s search took him across the globe, and in 2004, he met a 
+              gifted winemaker who had inherited the craft from his parents. 
+              This winemaker had created a unique wine that resonated with Lily's
+              romantic and free-spirited nature. Victor tasted the wine and immediately
+              knew it was what he had been searching for. Together, they named the wine
+              Bastina, a name that would come to symbolize elegance and passion.
+              The partnership between Victor and the winemaker flourished, and over
+              the years, Bastina Wine expanded its portfolio to include 12 exceptional
+              wines, each crafted with the same dedication to quality. In 2023, Bastina
+              Wine earned an organic certification in France, a testament to their 
+              unwavering commitment to excellence and environmental stewardship.
+              Thanks to Victor’s vision and the winemaker’s talent, Bastina Wine has
+              become not only Lily's favorite but also one of the most beloved wine 
+              brands on the market, celebrated for its authenticity and rich flavors.
             </p>
           </div>
-          <img src="../../public/pages/images/site-img/right-block.jpg" />
+          <img src="../../public/pages/images/bender-back.jpeg" />
         </div>
       </div>
       <div class="our-team-block">
         <h2 class="header-team">Our Team</h2>
         <p class="title-team">
-          At La Fleur LIly, we believe in the power of collaboration, innovation,
+          At Bastina Wine, we believe in the power of collaboration, innovation,
           and a shared vision. Our diverse and talented team is the driving force
           behind our success, working together to create exceptional solutions and
           deliver outstanding results. Get to know the extraordinary individuals
@@ -60,30 +60,12 @@
         </p>
         <div class="people">
           <div class="card" v-for="person in team_people" :key="person.name">
-              <img :src="`${person_url + String(team_people.indexOf(person) + 1)}.png`">
+              <img :src="`${person_url}${team_people.indexOf(person) + 1}.png`">
               <h4 class="name">{{ person.name }}</h4>
               <p class="position">{{ person.position }}</p>
           </div>
         </div>
       </div>
-      <div class="follow-us-block">
-        <div class="center-links">
-          <h2>Follow Us</h2>
-          <div class="social-media">
-            <a href="https://www.facebook.com/profile.php?id=100067500445783">
-              <img src="../../public/pages/images/site-img/icons-footer/facebook-footer.svg" >
-            </a>
-            <a href="https://www.instagram.com/lafleurlilywine/">
-              <img src="../../public/pages/images/site-img/icons-footer/instagram-footer.png" >
-            </a>
-            <a href="https://www.pinterest.com/lafleurlilywine/">
-              <img src="../../public/pages/images/site-img/icons-footer/pinterest-footer.svg" >
-            </a>
-          </div>
-        </div>
-      </div>
-
-     
     </div>
   
 </template>
@@ -186,43 +168,6 @@
     height: 90px;
 }
 
-.follow-us-block{
-    background-image: url(../../public/pages/images/site-img/back_aboutus.jpg);
-    text-align: center;
-    position: relative;
-    height: 400px;
-    background-size: cover;
-    background-attachment: fixed;
-}
-
-.center-links{
-    background-color: #FFFFFF;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    
-    width: 500px;
-    height: 400px;
-}
-
-.social-media{
-    display: flex;
-    justify-content: center;
-    
-}
-
-.social-media img{
-    width: 30px;
-    height: 30px;
-    padding: 30px;
-}
 
 /* Responsive adjustments */
 @media (max-width: 768px) {

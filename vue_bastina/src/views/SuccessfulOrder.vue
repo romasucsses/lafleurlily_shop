@@ -31,7 +31,7 @@
 
 
     .return-to-shop button{
-        background-color: #007bff;
+        background-color: rgba(102, 34, 47, 1);
         color: #fff;
         padding: 10px 20px;
         border: none;

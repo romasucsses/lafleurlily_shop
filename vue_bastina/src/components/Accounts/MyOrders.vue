@@ -93,7 +93,7 @@
         height: 30px;
         border: 2px;
         border-radius: 5px;
-        background-color: #0084d6;
+        background-color: rgba(102, 34, 47, 1);
         color: white;
         font-size: 17px;
 

@@ -1,14 +1,20 @@
-from rest_framework import serializers
-from .models import *
+from rest_framework.serializers import ModelSerializer
+from .models import OrderInfoLily, OrderInfoBastina, OrderInfoDA
 
 
-class OrdersSerializer(serializers.ModelSerializer):
+class OrderInfoBastinaSerializer(ModelSerializer):
     class Meta:
-        model = OrderInfo
+        model = OrderInfoBastina
         fields = '__all__'
 
 
-class ShippingAddressSerializer(serializers.ModelSerializer):
+class OrderInfoDASerializer(ModelSerializer):
     class Meta:
-        model = ShippingInfo
+        model = OrderInfoDA
+        fields = '__all__'
+
+
+class OrderInfoLilySerializer(ModelSerializer):
+    class Meta:
+        model = OrderInfoLily
         fields = '__all__'
