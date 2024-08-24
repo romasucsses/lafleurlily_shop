@@ -18,7 +18,7 @@ jobs:
         sshpass -p ${{ secrets.SERVER_PASSWORD }} ssh -o StrictHostKeyChecking=no -tt ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
           cd www/app/lafleurlily_shop
 
-          git pull origin main 
+          git pull https://${{ secrets.USERNAME_GITHUB }}:${{ secrets.TOKEN_GITHUB }}@github.com/${{ secrets.REPOSITORY_NAME }}.git main
           docker compose down
           docker compose build
           docker compose up db_postgres_lily -d
