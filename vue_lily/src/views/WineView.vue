@@ -139,7 +139,7 @@ async function getProducts() {
 
                                 <div class="stars-img">
                                     <img v-for="item in 5" :key="item"
-                                        src="../../public/shop/images/site-img/star-photo-review.svg" />
+                                        src="../../public/pages/images/site-img/star-photo-review.svg" />
                                 </div>
                             </div>
                         </div>

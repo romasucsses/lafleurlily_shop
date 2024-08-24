@@ -102,7 +102,7 @@
 
   .phone-numbers .card h3 {
     font-size: 24px;
-    color: #007bff; 
+    color: ; 
     margin-bottom: 10px;
   }
 
@@ -135,7 +135,7 @@
 
   .left-block h6 {
     font-size: 18px;
-    color: #0084d6;
+    color: rgba(102, 34, 47, 1)
   }
 
   .left-block h2 {
@@ -182,7 +182,7 @@
   }
 
   .right-block button {
-    background-color: #0084d6;
+    background-color: rgba(102, 34, 47, 1);
     color: #fff;
     font-weight: bold;
     cursor: pointer;
@@ -191,7 +191,7 @@
 
   .right-block button:hover {
     background-color: #f2f3fa;
-    color: #0084d6;
+    color: rgba(102, 34, 47, 1);
   }
   /* Responsive Styles */
   @media (max-width: 768px) {

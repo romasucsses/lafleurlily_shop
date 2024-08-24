@@ -5,7 +5,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import dotenv from 'dotenv'
 import { resolve } from 'path'
 
-dotenv.config({ path: resolve(__dirname, '../.env') })
+// dotenv.config({ path: resolve(__dirname, '../.env') })
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -18,10 +18,4 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  define: {
-    'process.env': {
-      VITE_DOMAIN_NAME: JSON.stringify(process.env.DOMAIN_NAME),
-    }
-  }
 })
-

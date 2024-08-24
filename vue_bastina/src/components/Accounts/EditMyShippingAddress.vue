@@ -114,7 +114,7 @@ textarea {
 input:focus,
 textarea:focus {
     outline: none;
-    border: 1px solid #007bff;
+    border: 1px solid rgba(102, 34, 47, 1);
 }
 
 .btn-add-address {

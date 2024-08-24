@@ -3,15 +3,13 @@ import HomeView from '@/views/HomeView.vue';
 import AboutUsView from '@/views/AboutUsView.vue';
 import ShopView from '@/views/ShopView.vue';
 import ContactUsView from '@/views/ContactUsView.vue';
-import WineView from '@/views/WineView.vue';
-import SparklingView from '@/views/SparklingView.vue';
 import FindNearMeView from '@/views/FindNearMeView.vue';
 import my_accounts_router from './my_accounts_router.js';
 import CartView from '@/views/CartView.vue';
 import ProductDetailView from '@/views/ProductDetailView.vue';
 import SuccessfulOrder from '@/views/SuccessfulOrder.vue';
 import ShippingAddressCartView from '@/views/ShippingAddressCartView.vue';
-import * as path from 'path'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -47,22 +45,6 @@ const router = createRouter({
       component: ContactUsView,
       meta: {
         title: 'Contact US'
-      }
-    },
-    {
-      path: '/shop/wine',
-      name: 'wine',
-      component: WineView,
-      meta: {
-        title: 'Our Wine'
-      }
-    },
-    {
-      path: '/shop/sparkling',
-      name: 'sparkling',
-      component: SparklingView,
-      meta: {
-        title: 'Our Sparkling'
       }
     },
     {

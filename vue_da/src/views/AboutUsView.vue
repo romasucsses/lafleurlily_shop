@@ -1,5 +1,5 @@
 <script setup>
-    const person_url =  "../../public/pages/images/team-photos/" ;
+    const person_url =  "../../pages/images/team-photos/" ;
 
     const team_people = [
         { name: "Victor Costin", position: "CEO - Founder" },
@@ -23,7 +23,7 @@
           <div class="left-block">
             <h2>Who We Are</h2>
             <p>
-              La Fleur Lily is a wine brand created by Victor and Lily, a young
+              Dolce Amore is a wine brand created by Victor and Lily, a young
               family who immigrated to the United States from Europe in search of
               a better life. Upon arriving in New York, Lily began searching for
               her favorite semi-sweet wine that would suit her taste, but Victor,
@@ -34,24 +34,24 @@
               his parents. This young man was a talented winemaker who created a
               unique wine that matched Lily's character, romantic and
               free-spirited. Victor asked him to taste the wine and realized that
-              this was what he was looking for. They named the wine La Fleur Lily
+              this was what he was looking for. They named the wine Dolce Amore
               in honor of Lily and began working together to create more
-              high-quality wines. Since then, La Fleur Lily has a portfolio of 12
-              wines that sell very well. In 2023, La Fleur Lily received an
+              high-quality wines. Since then, Dolce Amore has a portfolio of 12
+              wines that sell very well. In 2023, Dolce Amore received an
               organic certification in France, which confirms their constant
               pursuit of high quality and care for the environment. Thanks to the
-              talent and efforts of Victor and the young winemaker, La Fleur Lily
+              talent and efforts of Victor and the young winemaker, Dolce Amore
               has become not only Lily's favorite wine but also one of the most
               popular wine brands in the market.
             </p>
           </div>
-          <img src="../../public/pages/images/site-img/right-block.jpg" />
+          <img src="../../public/pages/images/site-img/right-block.jpeg" />
         </div>
       </div>
       <div class="our-team-block">
         <h2 class="header-team">Our Team</h2>
         <p class="title-team">
-          At La Fleur LIly, we believe in the power of collaboration, innovation,
+          At Dolce Amore, we believe in the power of collaboration, innovation,
           and a shared vision. Our diverse and talented team is the driving force
           behind our success, working together to create exceptional solutions and
           deliver outstanding results. Get to know the extraordinary individuals
@@ -66,24 +66,6 @@
           </div>
         </div>
       </div>
-      <div class="follow-us-block">
-        <div class="center-links">
-          <h2>Follow Us</h2>
-          <div class="social-media">
-            <a href="https://www.facebook.com/profile.php?id=100067500445783">
-              <img src="../../public/pages/images/site-img/icons-footer/facebook-footer.svg" >
-            </a>
-            <a href="https://www.instagram.com/lafleurlilywine/">
-              <img src="../../public/pages/images/site-img/icons-footer/instagram-footer.png" >
-            </a>
-            <a href="https://www.pinterest.com/lafleurlilywine/">
-              <img src="../../public/pages/images/site-img/icons-footer/pinterest-footer.svg" >
-            </a>
-          </div>
-        </div>
-      </div>
-
-     
     </div>
   
 </template>
@@ -186,43 +168,6 @@
     height: 90px;
 }
 
-.follow-us-block{
-    background-image: url(../../public/pages/images/site-img/back_aboutus.jpg);
-    text-align: center;
-    position: relative;
-    height: 400px;
-    background-size: cover;
-    background-attachment: fixed;
-}
-
-.center-links{
-    background-color: #FFFFFF;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    
-    width: 500px;
-    height: 400px;
-}
-
-.social-media{
-    display: flex;
-    justify-content: center;
-    
-}
-
-.social-media img{
-    width: 30px;
-    height: 30px;
-    padding: 30px;
-}
 
 /* Responsive adjustments */
 @media (max-width: 768px) {

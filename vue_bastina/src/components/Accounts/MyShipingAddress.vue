@@ -107,7 +107,7 @@
     
     .head a {
         text-decoration: none;
-        color: #007BFF;
+        color: rgba(102, 34, 47, 1);
         font-weight: bold;
     }
 

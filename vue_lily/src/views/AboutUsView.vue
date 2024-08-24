@@ -1,5 +1,5 @@
 <script setup>
-    const person_url =  "../../public/pages/images/team-photos/" ;
+    const person_url =  "../../pages/images/team-photos/" ;
 
     const team_people = [
         { name: "Victor Costin", position: "CEO - Founder" },

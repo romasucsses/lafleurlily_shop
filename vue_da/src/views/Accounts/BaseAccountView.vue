@@ -103,7 +103,7 @@
     }
 
     .left-menu a:hover{
-        color:#0084d6;
+        color:rgba(205,132,115,255);
         font-size: 19px;
     }
 

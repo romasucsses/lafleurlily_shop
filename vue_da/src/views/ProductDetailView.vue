@@ -120,7 +120,7 @@
 
                             <div class="stars-img">
                                 <img v-for="item in 5" :key="item"
-                                    src="../../public/shop/images/site-img/star-photo-review.svg" />
+                                    src="../../public/pages/images/site-img/star-photo-review.svg" />
                             </div>
                         </div>
                     </div>
@@ -142,7 +142,7 @@
 
 
                     <div class="each-review" v-for="review in all_reviews.reviews" :key="review.id">
-                        <img src="../../public/shop/images/site-img/avatar-review.png">
+                        <img src="../../public/pages/images/site-img/avatar-review.png">
                         <div class="right-colum">
                             <p> {{ review.name }} </p>
                             <p>{{ review.date }} </p>
@@ -178,7 +178,7 @@
 
 <style scoped>
     .pagination-button {
-        background-color: #007bff; 
+        background-color: rgba(205,132,115,255); 
         border: none; 
         color: white; 
         padding: 5px 10px; 
@@ -195,11 +195,13 @@
         background-color: #54a1f3 
     }
     .product{
-    display: flex;
-    margin-top:50px;
-    width: 1100px;
-    margin: 20px;
-    padding: 20px;
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+        width: 100%;
+        margin-top: 5%;
+        margin: 15px;
+        padding: 5px;
     }
     .prod-info{
         text-align: left;
@@ -212,33 +214,31 @@
     }
 
     #quality {
-    padding: 5px;
-    margin-right: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 50px;
-    height: 35px;
+        padding: 5px;
+        margin-right: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 50px;
+        height: 35px;
 
     }
     .btn1{
-    width: 240px;
-    height: 40px;
-
-    background-color:blue;
-    border: 0;
+        width: 240px;
+        height: 40px;
+        background-color:rgba(205,132,115,255);
+        border: 0;
     }
 
     .btn1{
-    text-decoration: none;
-    color: white;
-    font-size: larger;
+        text-decoration: none;
+        color: white;
+        font-size: larger;
     }
 
     .prod-img{
-
-    width: 460px;
-    height: 460px;
+        height: 480px;
+        width: auto;
     }
 
     .categ1{
@@ -361,7 +361,7 @@
     }
     
     #submit-review {
-        background-color: #007bff;
+        background-color: rgba(205,132,115,255);
         color: #fff;
         border: none;
         padding: 10px;

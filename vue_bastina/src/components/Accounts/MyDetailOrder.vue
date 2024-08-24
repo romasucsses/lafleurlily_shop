@@ -103,7 +103,7 @@
     }
 
     th {
-        background-color: #007bff;
+        background-color: rgba(102, 34, 47, 1);
         color: white;
     }
 </style>

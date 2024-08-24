@@ -2,11 +2,10 @@ from django.contrib.sessions.models import Session
 from django.db import models
 
 
-class Coupon(models.Model):
-    coupons = models.CharField(max_length=155)
-    date_expiration = models.DateField(format('%Y/%m/%d'))
-    percent_discount = models.FloatField()
-    product = models.ForeignKey('products.Product', on_delete=models.CASCADE)
+# class Coupon(models.Model):
+#     coupons = models.CharField(max_length=155)
+#     date_expiration = models.DateField(format('%Y/%m/%d'))
+#     percent_discount = models.FloatField()
 
 
 class ShippingInfo(models.Model):
@@ -20,7 +19,7 @@ class ShippingInfo(models.Model):
     email = models.EmailField()
 
 
-class OrderInfo(models.Model):
+class BaseOrderInfoModel(models.Model):
     date_created = models.DateTimeField(auto_now=True)
     date_to_deliver = models.DateTimeField(null=True)
 
@@ -36,18 +35,32 @@ class OrderInfo(models.Model):
     cart_data = models.JSONField()
     is_paid = models.BooleanField(default=False)
     payment_method = models.CharField(max_length=255, default=None)
-    coupon = models.OneToOneField(Coupon, on_delete=models.PROTECT, null=True)
     total_sum = models.DecimalField(decimal_places=2, max_digits=15)
 
-    user = models.ForeignKey('users.User', on_delete=models.PROTECT, null=True, related_name='user_orders')
-    shipping_data = models.ForeignKey('orders.ShippingInfo', on_delete=models.CASCADE, null=True,
-                                      related_name='shipping_orders')
+    user = models.ForeignKey('users.User', on_delete=models.PROTECT, null=True)
+    shipping_data = models.ForeignKey('orders.ShippingInfo', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f'Order Nr.{self.pk}'
+
+    class Meta:
+        abstract = True
+
+
+class OrderInfoBastina(BaseOrderInfoModel):
+    pass
+
+
+class OrderInfoDA(BaseOrderInfoModel):
+    pass
+
+
+class OrderInfoLily(BaseOrderInfoModel):
+    pass
 
 
 class EmailSubscription(models.Model):
     email = models.EmailField()
     date_subscription = models.DateField(auto_now=True)
+    site = models.CharField(max_length=20)
 

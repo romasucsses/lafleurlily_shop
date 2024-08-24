@@ -1,16 +1,15 @@
-from orders.serializers import ShippingAddressSerializer
 from celery import shared_task
 from .models import User
-from .serializers import UserSerializer, UserSignUpSerializer
+from .serializers import UserSerializer, UserSignUpSerializer, ShippingAddressSerializer
 
 
 
 @shared_task
 def update_user_task(request_data, user_id, db):
-    user = User.objects.using(db).get(pk=user_id)
+    user = User.objects.get(pk=user_id)
     serializer = UserSerializer(user, data=request_data, partial=True)
     if serializer.is_valid():
-        serializer.save(using=db)
+        serializer.save()
         return 'updated successfully'
     return 'fail to update'
 
@@ -19,10 +18,10 @@ def update_user_task(request_data, user_id, db):
 def update_address_task(request_data, address, db):
     new_data = ShippingAddressSerializer(address, data=request_data, partial=True)
     if new_data.is_valid():
-        new_data.save(using=db)
+        new_data.save()
         user = address
         user = new_data.instance
-        user.save(using=db)
+        user.save()
         return 'Done Successful'
     return 'Not Successful'
 
@@ -31,6 +30,6 @@ def update_address_task(request_data, address, db):
 def create_new_user_task(request_data, db):
     new_user = UserSignUpSerializer(data=request_data)
     if new_user.is_valid():
-        new_user.save(using=db)
+        new_user.save()
         return 'User have been created'
     return 'User Not Created'

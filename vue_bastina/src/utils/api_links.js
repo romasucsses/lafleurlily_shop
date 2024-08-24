@@ -1,2 +1,1 @@
-export const DOMAIN_NAME = process.env.VITE_DOMAIN_NAME;
-export const DOMAIN_FOR_IMG = process.env.VITE_DOMAIN_NAME;
+export const DOMAIN_NAME = 'http://localhost:8002/api/v1/bastina/' ;

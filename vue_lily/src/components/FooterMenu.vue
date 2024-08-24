@@ -20,14 +20,14 @@ async function subscribePostRequest() {
     <div class="left-column">
       <div class="icons-footer">
         <a href="https://www.instagram.com/lafleurlilywine/">
-          <img src="/public/shop/images/site-img/icons-footer/instagram-footer.png" />
+          <img src="/public/pages/images/site-img/icons-footer/instagram-footer.png" />
         </a>
         <a href="https://www.facebook.com/lafleurlilywine/">
-          <img src="/public/shop/images/site-img/icons-footer/facebook-footer.svg" />
+          <img src="/public/pages/images/site-img/icons-footer/facebook-footer.svg" />
         </a>
 
         <a href="https://www.pinterest.com/lafleurlilywine/">
-          <img src="/public/shop/images/site-img/icons-footer/pinterest-footer.svg" />
+          <img src="/public/pages/images/site-img/icons-footer/pinterest-footer.svg" />
         </a>
       </div>
       <p>Copyright © 2023 La Fluer Lily</p>

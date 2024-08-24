@@ -3,7 +3,7 @@
     <nav>
       <div class="menu">
         <RouterLink :to="{name: 'home'}">
-          <img class="logo-img" src="/public/shop/images/site-img/logo.png"/>
+          <img class="logo-img" src="/public/pages/images/site-img/logo.png"/>
         </RouterLink>
         <ul :class="{ 'menu-open': isMenuOpen }">
           <li @click="closeMenu">
@@ -32,8 +32,8 @@
           </li>
         </ul>
         <div class="cart-acc-img">
-          <RouterLink :to="{ name: 'cart' }"><a><img src="/public/shop/images/site-img/cart_.svg.png" /></a></RouterLink>
-          <RouterLink :to="{ name: 'my_account' }"><a><img src="/public/shop/images/site-img/my-account.png" /></a>
+          <RouterLink :to="{ name: 'cart' }"><a><img src="/public/pages/images/site-img/cart_.svg.png" /></a></RouterLink>
+          <RouterLink :to="{ name: 'my_account' }"><a><img src="/public/pages/images/site-img/my-account.png" /></a>
           </RouterLink>
         </div>
         <button class="menu-toggle" @click="toggleMenu">☰</button>

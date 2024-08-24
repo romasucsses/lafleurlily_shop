@@ -6,7 +6,6 @@
     import { computed } from 'vue';
 
     const products = ref({});
-    let best_sellers = false;
     const isLoading = ref(true);
     const hasError = ref(false);
 
@@ -23,9 +22,7 @@
                 .then(
                     (responese) => {
                         products.value = responese.data;
-                        best_sellers = computed(() => [...products.value].reverse().slice(0, 4));
                         console.log(products.value);
-                        console.log(best_sellers);
                     }
                 )
                 .catch((error) => {
@@ -106,14 +103,8 @@
                 <div class="categories">
                     <p class="title">Categories</p>
 
-                    <RouterLink :to="{name:'sparkling'}">
-                        <p class="sparkling-cat">Sparkling</p>
-                    </RouterLink>
-                    <RouterLink :to="{name: 'wine'}">
-                        <p class="wine-cat">Wine</p>
-                    </RouterLink>
                     <RouterLink :to="{name: 'shop'}">
-                        <p class="wine-cat">All Products</p>
+                        <p class="wine-cat">Sparkling</p>
                     </RouterLink>
                 </div>
             </div>
@@ -150,7 +141,7 @@
 
                                 <div class="stars-img">
                                     <img v-for="item in 5" :key="item"
-                                        src="../../public/shop/images/site-img/star-photo-review.svg" />
+                                        src="../../public/pages/images/site-img/star-photo-review.svg" />
                                 </div>
                             </div>
                         </div>
@@ -179,24 +170,19 @@
 .search-prod-form input {
     margin-top: 15%;
     height: 40px;
-    width: 100%;
-   
+    width: 95%;
     font-size: 17px;
     padding: 0 10px;
-  
     border: 1px solid #ccc;
-  
     border-radius: 5px;
-   
     outline: none;
-    
     transition: border-color 1s, box-shadow 1s;
    
 }
 
 
 .search-prod-form input:focus {
-    border-color: #3498db;
+    border-color: rgba(205,132,115,255);
     box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
 }
 
@@ -216,33 +202,9 @@
 }
 
 
-
-
-.price{
-    font-size: 18px;
-    font-weight: 200;
-}
-
-.product{
-    width: 28%;
-    padding: 10px 5px;
-    background-color: rgb(250, 250, 250);
-    margin: 10px;
-    text-align: center;
-}
-
-.product img{
-    width: 180px;
-    height: 180px;
-    
-}
-
-
-
-
 .right-block-products{
     background-color: #FFFFFF;
-    width: 910px;
+    width: 1110px;
 }
 .head-category {
     margin: 30px;
@@ -291,63 +253,68 @@
     justify-content: center;
     flex-wrap: wrap;
     max-width: 100%;
-    margin-top: 30px;
+    margin-top: 100px;
     padding: 15px;
     width: 100%;
     max-width: 900px;
 }
 
 
-.product-category{
-    font-weight: 100;
-    letter-spacing: 1px;
-    color: #6f6f6f;
+.product {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  width: 220px;
+  padding: 15px;
+  margin: 20px;
+  text-align: center;
 }
 
-.info-product-shop{
-    margin: 10px 0;
+.product:hover {
+  transform: translateY(-5px);
 }
 
-.product-name,
-.product-category,
-.product-price,
+.product img {
+  height: 200px;
+  width: auto;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.info-product-shop {
+  margin-top: 15px;
+}
+
+.product-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.product-category {
+  font-size: 14px;
+  color: #888;
+  margin-top: 5px;
+}
+
+.product-price {
+  font-size: 22px;
+  font-weight: bold;
+  color: #d32f2f;
+  margin-top: 10px;
+}
+
 .review {
-    margin: 5px 0;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }
 
-.info-product-shop h2{
-    font-size: 16px;
-    font-weight: 550;
-}
-
-.product-price{
-    font-size: 27px;
-    font-weight: 500;
-}
-
-.review{
-    display: flex;
-    position: relative;
-    color: #8e7e4d;
-    justify-content: center;    
-}
-
-.stars-img{
-    display: flex;
-    justify-content: space-between;
-    
-    
-    
-}
-
-.stars-img img{
-    width: 15px;
-    height: 15px;
-    bottom: 0;
-    padding: 1px;
-    margin: 1px;
-    margin-top: 9px;
-   
+.stars-img img {
+  width: 18px;
+  height: 18px;
+  margin: 0 2px;
 }
 
 /* Responsive adjustments */

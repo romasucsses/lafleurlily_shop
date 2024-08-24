@@ -1,6 +1,6 @@
 <script setup>
   import { RouterLink } from 'vue-router'
-  import { onMounted, ref, computed } from 'vue';
+  import { onMounted, ref} from 'vue';
   import axios from 'axios';
   import { DOMAIN_NAME } from '@/utils/api_links';
 
@@ -43,20 +43,20 @@
 
  const items = [
     {
-        image: "/pages/images/block3_first_img.jpg",
-        p_text: "To provide you with the best wine and service is our primary goal.",
-        a_text: "OUR WINES",
-        link: "/shop/wine"
-    },
-    {
-        image: "/pages/images/block3_second_img.jpg",
-        p_text: "La Fleur Lily is love in a glass.",
+        image: "/pages/images/block3_first_img.jpeg",
+        p_text: "best sparkling.",
         a_text: "OUR SPARKLING",
-        link: "/shop/sparkling"
+        link: "/shop"
     },
     {
-        image: "/pages/images/block3_three_img.jpg",
-        p_text: "La Fleur Lily - wine born with love and passion.",
+        image: "/pages/images/block3_second_img.jpeg",
+        p_text: "love in a glass.",
+        a_text: "CONTACT US",
+        link: "/contact-us"
+    },
+    {
+        image: "/pages/images/block3_three_img.jpeg",
+        p_text: "love and passion.",
         a_text: "OUR STORY",
         link: "/about-us"
     }
@@ -76,15 +76,13 @@
           <RouterLink to="/shop"><a class="block1-a1">SHOP NOW</a></RouterLink>
         </button>
         <button class="block1-btn2">
-          <RouterLink to="/about-us"><a class="block1-a2">ABOUT Dolce Amore</a></RouterLink>
+          <RouterLink to="/about-us"><a class="block1-a2">ABOUT</a></RouterLink>
         </button>
       </div>
     </div>
     <div class="two-block">
-      <video src="../../public/pages/videos/first_video_two-block.mp4" width="580" height="300" autoplay muted loop
-        controls="false">
-        Your browser does not support the video
-      </video>
+      <img src="../../public/pages/images/da_best-img.jpeg">
+      
       <p>
         Welcome to Dolce Amore Wine, where organic wines<br>
         are crafted with soul.Our vineyards thrive<br>
@@ -106,32 +104,32 @@
         </div>
       </div>
     </div>
-    <div class="home-products">
-      <h2 class="featured-prod">Featured Products</h2>
-      <div class="products">
-        <div v-for="product in products" :key="product.id" class="product">
+    <div class="home-products-h">
+      <h2 class="featured-prod-h">Featured Products</h2>
+      <div class="products-h">
+        <div v-for="product in products" :key="product.id" class="product-h">
           <RouterLink :to="{name:'product_detail', params:{slug: product.slug_url}}">
             <img :src="product.img_url" alt="Wait please" />
           </RouterLink>
-          <div class="info-product-shop">
-            <h2 class="product-name">{{ product.name }} </h2>
-            <p class="product-category">
+          <div class="info-product-shop-h">
+            <h2 class="product-name-h">{{ product.name }} </h2>
+            <p class="product-category-h">
               <span v-if="product.category == 1 ">Wine</span>
               <span v-else>Sparkling</span>
             </p>
-            <p class="product-price">${{ product.price }}.00</p>
-            <div class="review">
+            <p class="product-price-h">${{ product.price }}.00</p>
+            <div class="review-h">
 
-              <div class="stars-img">
+              <div class="stars-img-h">
                 <img v-for="item in 5" :key="item"
-                  src="../../public/shop/images/site-img/star-photo-review.svg" />
+                  src="../../public/pages/images/site-img/star-photo-review.svg" />
               </div>
             </div>
           </div>
         </div>
       </div>
       <RouterLink :to="{name: 'shop'}">
-        <button class="products-btn"><a>VIEW ALL PRODUCTS</a></button>
+        <button class="products-btn-h"><a>VIEW ALL PRODUCTS</a></button>
       </RouterLink>
     </div>
   </div>
@@ -144,7 +142,7 @@
 .first-block {
   position: relative;
   height: 470px;
-  background-image: url(../../public/pages/images/first-background-img.jpg);
+  background-image: url(../../public/pages/images/block3_three_img.jpeg);
   background-size: cover;
   background-attachment: fixed;
 }
@@ -162,21 +160,21 @@ button a {
 .block1-btn1 {
   width: 180px;
   height: 50px;
-  background-color: white;
+  background-color: rgba(205,132,115,255);
   border: 0;
 }
 
 .block1-btn1 a {
-  color: black;
+  color: white;
 }
 
 .block1-btn1:hover {
-  background-color: black;
+  background-color: white;
   border: 0;
 }
 
 .block1-btn1:hover a {
-  color: white;
+  color: black;
 }
 
 .block1-btn2 {
@@ -192,12 +190,12 @@ button a {
 }
 
 .block1-btn2:hover {
-  background-color: white;
+  background-color: rgba(205,132,115,255);
   border: 0;
 }
 
 .block1-btn2:hover a {
-  color: black;
+  color: white;
 }
 
 .block1-p1 {
@@ -218,15 +216,9 @@ button a {
 }
 
 
-.two-block video::-webkit-media-controls-panel {
-  display: none;
-}
-
-.two-block video::-webkit-media-controls {
-  display: none;
-}
-
-.two-block video {
+.two-block img {
+  height: 400px;
+  width: auto;
   margin-top: 30px;
   margin-right: 10%;
   padding-left: 0%;
@@ -281,20 +273,20 @@ button a {
 .three-block button {
   width: 180px;
   height: 50px;
-  background-color: white;
+  background-color: rgba(205,132,115,255);
   border: 0;
 }
 .three-block button a {
-  color: black;
+  color: white;
   font-size: large;
 }
 
 .three-block button:hover {
-  background-color: black;
+  background-color: white;
 }
 
 .three-block button:hover a {
-  color: white;
+  color: black;
 }
 
 .three-block p {
@@ -304,84 +296,85 @@ button a {
   background-color: rgb(181, 170, 170);
 }
 
-.home-products {
+.home-products-h {
   text-align: center;
+  padding: 20px;
+  background-color: #f9f9f9;
 }
 
-.featured-prod {
-  text-align: center;
-  font-size: 30px;
-  color: #000000;
+.featured-prod-h {
+  font-size: 28px;
+  color: #333;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 30px;
 }
 
-/* .products {
+.products-h {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  gap: 20px;
   max-width: 100%;
-  margin-top: 50px;
+}
+
+.product-h {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  width: 220px;
   padding: 15px;
-} */
-
-/* .product-card {
-  text-align: left;
-  padding: 8px;
+  margin: 20px;
+  text-align: center;
 }
 
-.product-card img {
-  width: 219px;
-  height: 219px;
-  margin: 9px;
+.product-h:hover {
+  transform: translateY(-5px);
 }
 
-.product-category {
-  font-weight: 100;
-  letter-spacing: 1px;
-  color: #6f6f6f;
+.product-h img {
+  height: 200px;
+  width: auto;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
-.info-product-shop {
-  margin: 10px 0;
+.info-product-shop-h {
+  margin-top: 15px;
 }
 
-.product-name,
-.product-category,
-.product-price,
-.review {
-  margin: 5px 0;
+.product-name-h {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
 }
 
-.info-product-shop h2 {
-  font-size: 16px;
-  font-weight: 550;
+.product-category-h {
+  font-size: 14px;
+  color: #888;
+  margin-top: 5px;
 }
 
-.product-price {
-  font-size: 27px;
-  font-weight: 500;
+.product-price-h {
+  font-size: 22px;
+  font-weight: bold;
+  color: #d32f2f;
+  margin-top: 10px;
 }
 
-.review {
+.review-h {
   display: flex;
-  position: relative;
-  color: #8e7e4d;
+  justify-content: center;
+  margin-top: 10px;
 }
 
-.stars-img {
-  display: flex;
-  justify-content: space-between;
+.stars-img-h img {
+  width: 18px;
+  height: 18px;
+  margin: 0 2px;
 }
 
-.stars-img img {
-  width: 15px;
-  height: 15px;
-  bottom: 0;
-  padding: 1px;
-  margin: 1px;
-  margin-top: 13px;
-}*/
-
-.products-btn {
+.products-btn-h {
   margin-top: 90px;
   width: 80%;
   height: 50px;
@@ -390,16 +383,17 @@ button a {
   border-color: black;
 }
 
-.products-btn a {
+.products-btn-h a {
   color: black;
   font-size: larger;
 }
 
-.products-btn:hover {
-  background-color: black;
+.products-btn-h:hover {
+  background-color: rgba(205,132,115,255);
+  border: 0;
 }
 
-.products-btn:hover a {
+.products-btn-h:hover a {
   color: white;
 } 
 
@@ -432,7 +426,7 @@ button a {
     width: 100%;
   }
 
-  .two-block video {
+  .two-block img {
     width: 80%;
     height: auto;
     margin: 0 auto;
@@ -486,7 +480,7 @@ button a {
     margin-bottom: 50px;
   }
 
-  .products {
+  .products-h {
     margin: 0 auto;
     margin-left: 7%;
   } 

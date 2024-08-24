@@ -1,6 +1,6 @@
 <script setup>
     import { onMounted, ref, watch } from 'vue';
-    import { DOMAIN_FOR_IMG, DOMAIN_NAME } from '@/utils/api_links';
+    import { DOMAIN_NAME } from '@/utils/api_links';
     import { DeleteItemFromCart, SaveLocalData } from '@/utils/cart_logic/cart.js';
     import { RouterLink, useRouter } from 'vue-router';
     import axios from 'axios';
@@ -101,11 +101,11 @@
                     <td class="cancel-prod">
                         <div>
                             <button class="delete-item" @click="DeleteItemFromCart(eachitem.id)">
-                                <img src="../../public/shop/images/site-img/cancel-circle.svg">
+                                <img src="../../public/pages/images/site-img/cancel-circle.svg">
                             </button>
                         </div>
                     </td>
-                    <td class="image-prod"><img :src="DOMAIN_FOR_IMG + eachitem.image"></td>
+                    <td class="image-prod"><img :src="DOMAIN + eachitem.image"></td>
                     <td>{{ eachitem.name }} </td>
                     <td>$ {{ eachitem.price }}.00</td>
                     <td><input type="number" v-model="eachitem.quantity"></td>
@@ -160,7 +160,7 @@
     .user button {
         width: 300px;
         height: 60px;
-        background-color: #007bff;
+        background-color: rgba(205,132,115,255);
         font-size: 20px;
         color: #FFFFFF;
         border: 0;
@@ -169,7 +169,7 @@
     }
 
     .user button {
-        background-color: #0084d6;
+        background-color: rgba(205,132,115,255);
     }
 
     .cart-header {
@@ -203,7 +203,7 @@
     .products-table th button {
         width: 150px;
         height: 45px;
-        background-color: #007bff;
+        background-color: rgba(205,132,115,255);
         color: #FFFFFF;
         border: 0;
         font-size: 17px;
@@ -265,7 +265,7 @@
     .coupons-add button {
         width: 170px;
         height: 45px;
-        background-color: #007bff;
+        background-color: rgba(205,132,115,255);
         color: #FFFFFF;
         border: 0;
         font-size: 17px;
@@ -312,7 +312,7 @@
     }
 
     .return-to-shop button {
-        background-color: #007bff;
+        background-color: rgba(205,132,115,255);
         color: #fff;
         padding: 10px 20px;
         border: none;
