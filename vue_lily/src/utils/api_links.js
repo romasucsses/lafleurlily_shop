@@ -1,2 +1,2 @@
-export const DOMAIN_NAME = `${process.env.VITE_DOMAIN_NAME}/default/` ;
+export const DOMAIN_NAME = 'https://lafleurlily.com/api/v1/lily/';
 

@@ -1,1 +1,1 @@
-export const DOMAIN_NAME = 'http://localhost:8002/api/v1/bastina/' ;
+export const DOMAIN_NAME = 'https://bastinawine.com/api/v1/bastina/';

@@ -241,8 +241,8 @@ button a {
 }
 
 .three-block img {
-  width: 380px;
-  height: 480px;
+  width: 310px;
+  height: 450px;
   position: relative;
   object-fit: cover;
 }
